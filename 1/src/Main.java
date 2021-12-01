@@ -15,6 +15,14 @@ public class Main {
         {
             list.add(scanner.nextInt());
         }
+
+        int result = 0;
+
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) > list.get(i-1)) result++;
+        }
+        
+        System.out.println("Result: " + result);
     }
 }
 
