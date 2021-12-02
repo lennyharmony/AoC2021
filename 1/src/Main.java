@@ -26,12 +26,10 @@ public class Main {
 
         //part2
         int result2 = 0;
-        int A = 0;
-        int B = 0;
 
         for (int i = 0; i < list.size() - 3; i++) {
-            A = list.get(i) + list.get(i+1) + list.get(i+2);
-            B = list.get(i+1) + list.get(i+2) + list.get(i+3);
+            int A = list.get(i) + list.get(i + 1) + list.get(i + 2);
+            int B = list.get(i + 1) + list.get(i + 2) + list.get(i + 3);
             if (B > A) result2++;
         }
         System.out.println("WindowResult: " + result2);
