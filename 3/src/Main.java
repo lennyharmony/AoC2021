@@ -25,14 +25,6 @@ public class Main {
         }
         System.out.println("Power consumption: " + Integer.parseInt(gamma.toString(), 2) * Integer.parseInt(epsilon.toString(), 2));
 
-        //pt 2
-
-
-        for (int i = 0; i < list.get(0).length(); i++) {
-            ones = countOnes(list);
-            if (ones[i] >=)
-        }
-
     }
 
     static int[] countOnes(ArrayList<String> list) {
@@ -82,7 +74,7 @@ public class Main {
         return list;
     }
 
-   
+
 }
 
 
