@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -25,6 +24,15 @@ public class Main {
         }
         System.out.println("Power consumption: " + Integer.parseInt(gamma.toString(), 2) * Integer.parseInt(epsilon.toString(), 2));
 
+        //pt2
+
+        String oxygenRating = getRating(list, true);
+        String co2Rating = getRating(list, false);
+        System.out.println("Oxygen generator rating: " + oxygenRating);
+        System.out.println("CO2 scrubber rating: " + co2Rating);
+
+        System.out.println("Life support rating: " + Integer.valueOf(oxygenRating, 2) * Integer.valueOf(co2Rating, 2));
+
     }
 
     static int[] countOnes(ArrayList<String> list) {
@@ -34,7 +42,6 @@ public class Main {
         for (int i = 0; i < ones.length; i++) {
             ones[i] = 0;
         }
-        System.out.println(Arrays.toString(ones));
 
         for (String s : list) {
             int[] addOnes = new int[stringLength];
@@ -74,7 +81,42 @@ public class Main {
         return list;
     }
 
+    static String getRating(ArrayList<String> list, boolean leastOrMost) {
+        int[] ones = countOnes(list);
+        char toKeep;
 
+
+        for (int i = 0; i < ones.length; i++) {
+            ones = countOnes(list);
+
+            if (ones[i] >= list.size() * 0.5) {
+                if (leastOrMost) {
+                    toKeep = '1';
+                } else {
+                    toKeep = '0';
+                }
+            } else {
+                if (leastOrMost) {
+                    toKeep = '0';
+                } else {
+                    toKeep = '1';
+                }
+            }
+
+            ArrayList<String> resultList = new ArrayList<>();
+            for (int j = 0; j < list.size(); j++) {
+                if (list.get(j).charAt(i) == toKeep) {
+                    resultList.add(list.get(j));
+                }
+            }
+            list = resultList;
+
+            if (list.size() == 1) {
+                break;
+            }
+        }
+        return list.get(0);
+    }
 }
 
 
