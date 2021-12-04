@@ -13,8 +13,8 @@ public class Main {
 
         int[] ones = countOnes(list);
 
-        for (int i = 0; i < ones.length; i++) {
-            if (ones[i] < list.size() / 2) {
+        for (int one : ones) {
+            if (one < list.size() / 2) {
                 gamma.append("0");
                 epsilon.append("1");
             } else {
@@ -38,10 +38,6 @@ public class Main {
     static int[] countOnes(ArrayList<String> list) {
         int stringLength = list.get(0).length();
         int[] ones = new int[stringLength];
-
-        for (int i = 0; i < ones.length; i++) {
-            ones[i] = 0;
-        }
 
         for (String s : list) {
             int[] addOnes = new int[stringLength];
@@ -85,7 +81,6 @@ public class Main {
         int[] ones = countOnes(list);
         char toKeep;
 
-
         for (int i = 0; i < ones.length; i++) {
             ones = countOnes(list);
 
@@ -104,9 +99,9 @@ public class Main {
             }
 
             ArrayList<String> resultList = new ArrayList<>();
-            for (int j = 0; j < list.size(); j++) {
-                if (list.get(j).charAt(i) == toKeep) {
-                    resultList.add(list.get(j));
+            for (String s : list) {
+                if (s.charAt(i) == toKeep) {
+                    resultList.add(s);
                 }
             }
             list = resultList;
