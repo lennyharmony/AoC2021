@@ -1,7 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,24 +12,10 @@ public class Main {
         StringBuilder gamma = new StringBuilder();
         StringBuilder epsilon = new StringBuilder();
 
-        //pt1
-        ArrayList<Integer> oneCounter = createOneCounter();
+        int[] ones = countOnes(list);
 
-        System.out.println(onePositions(list.get(0)));
-
-
-        for (String s : list) {
-            List<Integer> ones = onePositions(s);
-
-            for (int index : ones) {
-                Integer value = oneCounter.get(index);
-                value = value + 1;
-                oneCounter.set(index, value);
-            }
-        }
-
-        for (Integer integer : oneCounter) {
-            if (integer < list.size() / 2) {
+        for (int i = 0; i < ones.length; i++) {
+            if (ones[i] < list.size() / 2) {
                 gamma.append("0");
                 epsilon.append("1");
             } else {
@@ -36,9 +23,46 @@ public class Main {
                 epsilon.append("0");
             }
         }
-
         System.out.println("Power consumption: " + Integer.parseInt(gamma.toString(), 2) * Integer.parseInt(epsilon.toString(), 2));
 
+        //pt 2
+
+
+        for (int i = 0; i < list.get(0).length(); i++) {
+            ones = countOnes(list);
+            if (ones[i] >=)
+        }
+
+    }
+
+    static int[] countOnes(ArrayList<String> list) {
+        int stringLength = list.get(0).length();
+        int[] ones = new int[stringLength];
+
+        for (int i = 0; i < ones.length; i++) {
+            ones[i] = 0;
+        }
+        System.out.println(Arrays.toString(ones));
+
+        for (String s : list) {
+            int[] addOnes = new int[stringLength];
+
+            for (int i = 0; i < stringLength; i++) {
+                int input = Integer.parseInt(String.valueOf(s.charAt(i)));
+                Array.set(addOnes, i, input);
+            }
+            ones = addArrays(ones, addOnes);
+        }
+
+        return ones;
+    }
+
+    static int[] addArrays(int[] a, int[] b) {
+        int[] result = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            result[i] = a[i] + b[i];
+        }
+        return result;
     }
 
     static ArrayList<String> readFile() {
@@ -58,28 +82,7 @@ public class Main {
         return list;
     }
 
-    static ArrayList<Integer> createOneCounter() {
-        ArrayList<Integer> oneCounter = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            oneCounter.add(0);
-        }
-        return oneCounter;
-    }
-
-    static List<Integer> onePositions(String input) {
-
-        int number = Integer.parseInt(input, 2);
-        List<Integer> positions = new ArrayList<>();
-        int position = input.length() - 1;
-        while (number != 0) {
-            if ((number & 1) != 0) {
-                positions.add(position);
-            }
-            position--;
-            number = number >>> 1;
-        }
-        return positions;
-    }
+   
 }
 
 
