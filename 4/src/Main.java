@@ -10,6 +10,9 @@ public class Main {
         ArrayList<String> input = readFile();
         ArrayList<Integer> numberCallList = getCallList(input);
         ArrayList<BingoBoard> boards = createBingoBoards(input);
+        int lastBoard = 0;
+        int lastCall = 0;
+
 
         outerloop:
         for (int i = 0; i < numberCallList.size(); i++) {
@@ -17,20 +20,22 @@ public class Main {
 
             for (BingoBoard board : boards) {
                 board.markNumber(numberCallList.get(i));
-                if (Bingo.isBingo()) {
-                    System.out.println("BINGO at board number: " + (boardIndex + 1));
-                    System.out.println("Number called: " + numberCallList.get(i));
-                    System.out.println("Sum of unmarked numbers: " + boards.get(boardIndex).sumOfNumbers());
-                    System.out.println("FINAL SCORE: " + numberCallList.get(i) * boards.get(boardIndex).sumOfNumbers());
-                    System.out.println("BOARD " + (boardIndex + 1));
-                    for (int[] row : boards.get(boardIndex).getNumbers()) {
-                        System.out.println(Arrays.toString(row));
-                    }
-
+                if (allBingos(boards)) {
+                    lastBoard = boardIndex;
+                    lastCall = i;
                     break outerloop;
                 }
                 boardIndex++;
             }
+
+        }
+
+        System.out.println("LAST BINGO at board number: " + (lastBoard + 1));
+        System.out.println("Sum of unmarked numbers: " + boards.get(lastBoard).sumOfNumbers());
+        System.out.println("FINAL SCORE: " + numberCallList.get(lastCall) * boards.get(lastBoard).sumOfNumbers());
+        System.out.println("BOARD " + (lastBoard + 1));
+        for (int[] row : boards.get(lastBoard).getNumbers()) {
+            System.out.println(Arrays.toString(row));
         }
 
 
@@ -45,7 +50,7 @@ public class Main {
         }
 
         ArrayList<String> list = new ArrayList<>();
-        list.add(scanner.nextLine());
+        list.add(scanner != null ? scanner.nextLine() : null);
 
         while (true) {
             assert scanner != null;
@@ -69,8 +74,9 @@ public class Main {
     static ArrayList<BingoBoard> createBingoBoards(ArrayList<String> input) {
         ArrayList<BingoBoard> bingoBoards = new ArrayList<>();
         int[][][] arrays = createArrays(input);
-        for (int i = 0; i < arrays.length; i++) {
-            bingoBoards.add(new BingoBoard(arrays[i]));
+
+        for (int[][] array : arrays) {
+            bingoBoards.add(new BingoBoard(array));
         }
         return bingoBoards;
     }
@@ -106,5 +112,15 @@ public class Main {
         return array;
     }
 
+    static boolean allBingos(ArrayList<BingoBoard> boards) {
+        boolean result = true;
+        for (BingoBoard board : boards) {
+            if (!board.isBingo()) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
 
 }
