@@ -10,15 +10,16 @@ public class Main {
         String[] splitInput = input.get(0).split(",");
         ArrayList<Integer> intArray = new ArrayList<>();
 
+
         for (String s : splitInput) {
             int i = Integer.parseInt(s);
             intArray.add(i);
         }
 
-        for (int day = 0; day < 80; day++) {
-            checkFish(intArray);
-        }
-        System.out.println(intArray.size());
+        long[] fishCount = initialFishCount(intArray);
+
+        System.out.println(countFishAfterDays(fishCount, 256));
+
 
     }
 
@@ -40,13 +41,31 @@ public class Main {
         return list;
     }
 
-    static void checkFish(ArrayList<Integer> arrayList) {
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) == 0) {
-                arrayList.set(i, 7);
-                arrayList.add(9);
-            }
-            arrayList.set(i, arrayList.get(i) - 1);
+
+    static long countFishAfterDays(long[] fish, int days) {
+
+        for (int i = 1; i <= days; i++) {
+            long children = fish[0];
+
+            System.arraycopy(fish, 1, fish, 0, fish.length - 1);
+            fish[8] = children;
+            fish[6] += children;
         }
+
+        long amountOfFish = 0;
+        for (long amt : fish) {
+            amountOfFish += amt;
+        }
+        return amountOfFish;
+
+    }
+
+    static long[] initialFishCount(ArrayList<Integer> ints) {
+        long[] result = new long[9];
+
+        for (int fish : ints) {
+            result[fish]++;
+        }
+        return result;
     }
 }
