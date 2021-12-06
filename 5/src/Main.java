@@ -70,14 +70,24 @@ public class Main {
     static void fillGrid(int[][] grid, int[][][] arrays) {
 
         for (int i = 0; i < arrays.length; i++) {
+            int x1 = arrays[i][0][0];
+            int x2 = arrays[i][1][0];
+            int y1 = arrays[i][0][1];
+            int y2 = arrays[i][1][1];
 
-            if (arrays[i][0][1] == arrays[i][1][1]) { //horizontal line
+            if (y1 == y2) { //horizontal line
                 drawHorizontal(grid, arrays[i]);
             }
 
-            if (arrays[i][0][0] == arrays[i][1][0]) { //vertical line
+            if (x1 == x2) { //vertical line
                 drawVertical(grid, arrays[i]);
             }
+
+            if (Math.abs(x2 - x1) == Math.abs(y2 - y1)) {
+                drawDiagonal(grid, arrays[i]);
+            }
+
+
         }
     }
 
@@ -99,6 +109,30 @@ public class Main {
         for (int i = 0; i < length; i++) {
             grid[xCoord][startY + i] += 1;
         }
+
+    }
+
+    static void drawDiagonal(int[][] grid, int[][] coords) {
+        int[] startPosition, endPosition;
+        int xLength = Math.abs(coords[0][0] - coords[1][0]) + 1;
+
+        if (coords[0][0] < coords[1][0]) {
+            startPosition = coords[0];
+            endPosition = coords[1];
+        } else {
+            startPosition = coords[1];
+            endPosition = coords[0];
+        }
+
+        int upOrDown = 1;
+        if (startPosition[1] > endPosition[1]) {
+            upOrDown = -1;
+        }
+
+        for (int i = 0; i < xLength; i++) {
+            grid[startPosition[0] + i][startPosition[1] + upOrDown * i] += 1;
+        }
+
 
     }
 
