@@ -37,8 +37,6 @@ public class Main {
         for (int[] row : boards.get(lastBoard).getNumbers()) {
             System.out.println(Arrays.toString(row));
         }
-
-
     }
 
     static ArrayList<String> readFile() {
@@ -50,7 +48,6 @@ public class Main {
         }
 
         ArrayList<String> list = new ArrayList<>();
-        list.add(scanner != null ? scanner.nextLine() : null);
 
         while (true) {
             assert scanner != null;

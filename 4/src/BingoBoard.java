@@ -44,6 +44,7 @@ public class BingoBoard {
             bingo = true;
         }
 
+        //check diagonal2
         int sum2 = 0;
         for (int i = numbers.length - 1; i >= 0; i--) {
             for (int j = 0; j < numbers.length; j++) {
