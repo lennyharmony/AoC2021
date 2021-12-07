@@ -19,8 +19,7 @@ public class Main {
         long[] fishCount = initialFishCount(intArray);
 
         System.out.println(countFishAfterDays(fishCount, 256));
-
-
+        
     }
 
     static ArrayList<String> readFile() {
