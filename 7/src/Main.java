@@ -16,8 +16,13 @@ public class Main {
         for (String s : inputSplit) {
             inputArray.add(Integer.parseInt(s));
         }
-
+        //pt1
         System.out.println("Solution part 1: " + solveOne(inputArray));
+
+        //pt2
+        System.out.println("Solution part 2: " + solveTwo(inputArray));
+
+
     }
 
     static int solveOne(ArrayList<Integer> array) {
@@ -35,6 +40,29 @@ public class Main {
         }
 
         return result;
+    }
+
+    static int solveTwo(ArrayList<Integer> array) {
+        Collections.sort(array);
+        int maxValue = array.get(array.size() - 1);
+
+        int minimum = Integer.MAX_VALUE;
+
+
+        for (int i = 0; i <= maxValue; i++) {
+            int tempMinimum = 0;
+
+            for (Integer ints : array) {
+                tempMinimum += Math.abs(ints - i) * (Math.abs(ints - i) + 1) / 2;
+            }
+
+            if (tempMinimum < minimum) {
+                minimum = tempMinimum;
+            }
+            if (tempMinimum > minimum)
+                break;
+        }
+        return minimum;
 
     }
 
