@@ -59,13 +59,6 @@ public class Main {
 
     }
 
-    static int[] removeXCandidates(int[] row) {
-
-
-        return row;
-
-    }
-
 
     static ArrayList<String> readFile() {
         Scanner scanner = null;
