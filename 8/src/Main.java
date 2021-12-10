@@ -11,22 +11,8 @@ public class Main {
 
         //pt 1
         solveOne(inputArray);
-
-        String a = "abc";
-        String b = "abcd";
-
-        String[] test = {a, b};
-
-//        System.out.println(containsCheckPosition("cd", test));
-
+        //pt 2
         solveTwo(inputArray);
-
-//        b = b.replace("" + 'a', "");
-//
-//        System.out.println(b);
-//        System.out.println(stringDiff(a, b));
-//        System.out.println(stringDiff(stringDiff(a, b), b));
-
 
     }
 
