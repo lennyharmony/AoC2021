@@ -42,17 +42,16 @@ public class Main {
     }
 
     static void solveTwo(String[][][] input) {
-        String[] positions = new String[7];
         int answer = 0;
 
         for (String[][] array : input) {
             String[] patterns = array[0];
             String[] output = array[1];
 
-            Dictionary numbers = new Hashtable();
+            Hashtable<String, String> numbers = new Hashtable<>();
 
             Arrays.sort(patterns, Comparator.comparingInt(String::length));
-            patterns = sortStringArray(patterns);
+            sortStringArray(patterns);
 
 
             numbers.put("1", patterns[0]);
@@ -63,9 +62,9 @@ public class Main {
 
             //search 6, 9 and 0
             for (int i = 6; i <= 8; i++) {
-                if (!containCheck(numbers.get("1").toString(), patterns[i])) {
+                if (!containCheck(numbers.get("1"), patterns[i])) {
                     numbers.put("6", patterns[i]);
-                } else if (containCheck(numbers.get("4").toString(), patterns[i])) {
+                } else if (containCheck(numbers.get("4"), patterns[i])) {
                     numbers.put("9", patterns[i]);
                 } else {
                     numbers.put("0", patterns[i]);
@@ -75,41 +74,39 @@ public class Main {
 
             //search 2, 3 and 5
             for (int i = 3; i <= 5; i++) {
-                if (containCheck(numbers.get("1").toString(), patterns[i])) {
+                if (containCheck(numbers.get("1"), patterns[i])) {
                     numbers.put("3", patterns[i]);
-                } else if (containCheck(patterns[i], numbers.get("6").toString())) {
+                } else if (containCheck(patterns[i], numbers.get("6"))) {
                     numbers.put("5", patterns[i]);
                 } else {
                     numbers.put("2", patterns[i]);
                 }
             }
 
-            String answ = "";
+            StringBuilder answ = new StringBuilder();
 
-            for (int i = 0; i < output.length; i++) {
+            for (String s : output) {
                 for (int j = 0; j <= 9; j++) {
 
-                    String number = numbers.get(Integer.toString(j)).toString();
-                    if (number.length() == output[i].length() && containCheck(output[i], number)) {
-                        answ += Integer.toString(j);
+                    String number = numbers.get(Integer.toString(j));
+                    if (number.length() == s.length() && containCheck(s, number)) {
+                        answ.append(j);
 
                     }
                 }
             }
-            answer += Integer.parseInt(answ);
+            answer += Integer.parseInt(answ.toString());
         }
         System.out.println("Solution part 2 is: " + answer);
     }
 
-    static String[] sortStringArray(String[] array) {
-        String[] strArray = array;
+    static void sortStringArray(String[] array) {
 
-        for (int i = 0; i < strArray.length; i++) {
-            char[] charArray = strArray[i].toCharArray();
+        for (int i = 0; i < array.length; i++) {
+            char[] charArray = array[i].toCharArray();
             Arrays.sort(charArray);
-            strArray[i] = new String(charArray);
+            array[i] = new String(charArray);
         }
-        return strArray;
     }
 
     static boolean containCheck(String a, String b) {
@@ -118,6 +115,7 @@ public class Main {
         for (int i = 0; i < a.length(); i++) {
             if (!b.contains(a.charAt(i) + "")) {
                 result = false;
+                break;
             }
         }
         return result;
