@@ -53,17 +53,6 @@ public class Main {
 
     }
 
-    static void countBasin(int[][] grid, int i, int j, int counter) {
-        boolean trapped = i == 0 || grid[i - 1][j] == 9;
-
-        if (i != grid.length - 1 && grid[i + 1][j] != 9) trapped = false;
-        if (j != 0 && grid[i][j - 1] != 9) trapped = false;
-        if (j != grid[i].length - 1 && grid[i][j + 1] != 9) trapped = false;
-        
-
-    }
-
-
     static ArrayList<String> readFile() {
         Scanner scanner = null;
         try {
