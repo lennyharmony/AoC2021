@@ -32,19 +32,13 @@ public class Main {
         int answer = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                boolean lowest = true;
-                if (j != 0) {
-                    if (grid[i][j] >= grid[i][j - 1]) lowest = false;
-                }
-                if (j != grid[i].length - 1) {
-                    if (grid[i][j] >= grid[i][j + 1]) lowest = false;
-                }
-                if (i != 0) {
-                    if (grid[i][j] >= grid[i - 1][j]) lowest = false;
-                }
-                if (i != grid.length - 1) {
-                    if (grid[i][j] >= grid[i + 1][j]) lowest = false;
-                }
+                boolean lowest = j == 0 || grid[i][j] < grid[i][j - 1];
+
+                if (j != grid[i].length - 1 && grid[i][j] >= grid[i][j + 1]) lowest = false;
+
+                if (i != 0 && grid[i][j] >= grid[i - 1][j]) lowest = false;
+
+                if (i != grid.length - 1 && grid[i][j] >= grid[i + 1][j]) lowest = false;
 
 
                 if (lowest) {
@@ -56,6 +50,16 @@ public class Main {
         }
         System.out.println("Solution to pt1: " + answer);
 
+
+    }
+
+    static void countBasin(int[][] grid, int i, int j, int counter) {
+        boolean trapped = i == 0 || grid[i - 1][j] == 9;
+
+        if (i != grid.length - 1 && grid[i + 1][j] != 9) trapped = false;
+        if (j != 0 && grid[i][j - 1] != 9) trapped = false;
+        if (j != grid[i].length - 1 && grid[i][j + 1] != 9) trapped = false;
+        
 
     }
 
