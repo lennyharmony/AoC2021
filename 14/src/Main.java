@@ -17,7 +17,7 @@ public class Main {
     static void solveOne(ArrayList<String> input) {
         String polymer = input.get(0);
 
-        Hashtable<String, String> table = new Hashtable<String, String>();
+        Hashtable<String, String> table = new Hashtable<>();
 
         for (int i = 1; i < input.size(); i++) {
             String[] temp = input.get(i).split("->");
@@ -36,16 +36,16 @@ public class Main {
 
     public static String polymerSteps(String polymer, Hashtable<String, String> table, int steps) {
         for (int i = 0; i < steps; i++) {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (int j = 0; j < polymer.length() - 1; j++) {
                 String temp = polymer.charAt(j) + String.valueOf(polymer.charAt(j + 1));
-                result += polymer.charAt(j);
+                result.append(polymer.charAt(j));
                 if (table.containsKey(temp)) {
-                    result += table.get(temp);
+                    result.append(table.get(temp));
                 }
             }
-            result += polymer.charAt(polymer.length() - 1);
-            polymer = result;
+            result.append(polymer.charAt(polymer.length() - 1));
+            polymer = result.toString();
         }
         return polymer;
     }
@@ -55,7 +55,7 @@ public class Main {
 
         for (int i = 0; i < polymer.length(); i++) {
             char key = polymer.charAt(i);
-            int count = result.containsKey(key) ? result.get(key) : 0;
+            int count = result.getOrDefault(key, 0);
             result.put(key, count + 1);
         }
         return result;
